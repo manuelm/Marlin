@@ -374,6 +374,10 @@
   float coordinate_system[MAX_COORDINATE_SYSTEMS][XYZ];
 #endif
 
+#ifdef AnycubicTFTmodel
+#include "AnycubicTFT.h"
+#endif
+
 bool Running = true;
 
 uint8_t marlin_debug_flags = DEBUG_NONE;
@@ -8697,6 +8701,10 @@ inline void gcode_M109() {
       }
     #endif
 
+    #ifdef AnycubicTFTmodel
+      AnycubicTFT.CommandScan();
+    #endif
+
     #if TEMP_RESIDENCY_TIME > 0
 
       const float temp_diff = ABS(target_temp - temp);
@@ -8731,6 +8739,10 @@ inline void gcode_M109() {
       leds.set_white();
     #endif
   }
+
+  #ifdef AnycubicTFTmodel
+  AnycubicTFT.HeatingDone();
+  #endif
 
   #if DISABLED(BUSY_WHILE_HEATING)
     KEEPALIVE_STATE(IN_HANDLER);
@@ -8843,6 +8855,10 @@ inline void gcode_M109() {
         }
       #endif
 
+      #ifdef AnycubicTFTmodel
+      AnycubicTFT.CommandScan();
+      #endif
+
       #if TEMP_BED_RESIDENCY_TIME > 0
 
         const float temp_diff = ABS(target_temp - temp);
@@ -8870,6 +8886,10 @@ inline void gcode_M109() {
       }
 
     } while (wait_for_heatup && TEMP_BED_CONDITIONS);
+
+    #ifdef AnycubicTFTmodel
+    AnycubicTFT.HotbedHeatingDone();
+    #endif
 
     if (wait_for_heatup) lcd_reset_status();
     #if DISABLED(BUSY_WHILE_HEATING)
@@ -9070,6 +9090,10 @@ inline void gcode_M111() {
     #if ENABLED(ULTIPANEL)
       lcd_reset_status();
     #endif
+
+    #ifdef AnycubicTFTmodel
+    AnycubicTFT.CommandScan();
+    #endif
   }
 
 #endif // HAS_POWER_SWITCH
@@ -9101,6 +9125,10 @@ inline void gcode_M81() {
 
   #if ENABLED(ULTIPANEL)
     LCD_MESSAGEPGM(MACHINE_NAME " " MSG_OFF ".");
+  #endif
+
+  #ifdef AnycubicTFTmodel
+  AnycubicTFT.CommandScan();
   #endif
 }
 
@@ -15197,6 +15225,7 @@ void stop() {
   }
 }
 
+
 /**
  * Marlin entry-point: Set up before the program loop
  *  - Set up the kill pin, filament runout, power hold
@@ -15242,6 +15271,11 @@ void setup() {
   MYSERIAL0.begin(BAUDRATE);
   SERIAL_PROTOCOLLNPGM("start");
   SERIAL_ECHO_START();
+
+  #ifdef AnycubicTFTmodel
+    // Setup AnycubicTFT
+    AnycubicTFT.Setup();
+  #endif
 
   // Prepare communication for TMC drivers
   #if HAS_DRIVER(TMC2130)
@@ -15555,4 +15589,8 @@ void loop() {
   }
   endstops.event_handler();
   idle();
+
+  #ifdef AnycubicTFTmodel
+    AnycubicTFT.CommandScan();
+  #endif
 }
