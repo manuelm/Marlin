@@ -374,7 +374,7 @@
   float coordinate_system[MAX_COORDINATE_SYSTEMS][XYZ];
 #endif
 
-#ifdef AnycubicTFTmodel
+#ifdef ANYCUBIC_TFT_MODEL
 #include "AnycubicTFT.h"
 #endif
 
@@ -8701,7 +8701,7 @@ inline void gcode_M109() {
       }
     #endif
 
-    #ifdef AnycubicTFTmodel
+    #ifdef ANYCUBIC_TFT_MODEL
       AnycubicTFT.CommandScan();
     #endif
 
@@ -8740,7 +8740,7 @@ inline void gcode_M109() {
     #endif
   }
 
-  #ifdef AnycubicTFTmodel
+  #ifdef ANYCUBIC_TFT_MODEL
   AnycubicTFT.HeatingDone();
   #endif
 
@@ -8855,7 +8855,7 @@ inline void gcode_M109() {
         }
       #endif
 
-      #ifdef AnycubicTFTmodel
+      #ifdef ANYCUBIC_TFT_MODEL
       AnycubicTFT.CommandScan();
       #endif
 
@@ -8887,7 +8887,7 @@ inline void gcode_M109() {
 
     } while (wait_for_heatup && TEMP_BED_CONDITIONS);
 
-    #ifdef AnycubicTFTmodel
+    #ifdef ANYCUBIC_TFT_MODEL
     AnycubicTFT.HotbedHeatingDone();
     #endif
 
@@ -9091,7 +9091,7 @@ inline void gcode_M111() {
       lcd_reset_status();
     #endif
 
-    #ifdef AnycubicTFTmodel
+    #ifdef ANYCUBIC_TFT_MODEL
     AnycubicTFT.CommandScan();
     #endif
   }
@@ -9127,7 +9127,7 @@ inline void gcode_M81() {
     LCD_MESSAGEPGM(MACHINE_NAME " " MSG_OFF ".");
   #endif
 
-  #ifdef AnycubicTFTmodel
+  #ifdef ANYCUBIC_TFT_MODEL
   AnycubicTFT.CommandScan();
   #endif
 }
@@ -14925,7 +14925,7 @@ void manage_inactivity(const bool ignore_stepper_queue/*=false*/) {
     runout.run();
   #endif
 
-  #if ENABLED(ANYCUBIC_FILAMENT_RUNOUT_SENSOR)
+  #if ENABLED(ANYCUBIC_TFT_MODEL) && ENABLED(ANYCUBIC_FILAMENT_RUNOUT_SENSOR)
   AnycubicTFT.FilamentRunout();
   #endif
 
@@ -15276,7 +15276,7 @@ void setup() {
   SERIAL_PROTOCOLLNPGM("start");
   SERIAL_ECHO_START();
 
-  #ifdef AnycubicTFTmodel
+  #ifdef ANYCUBIC_TFT_MODEL
     // Setup AnycubicTFT
     AnycubicTFT.Setup();
   #endif
@@ -15594,7 +15594,7 @@ void loop() {
   endstops.event_handler();
   idle();
 
-  #ifdef AnycubicTFTmodel
+  #ifdef ANYCUBIC_TFT_MODEL
     AnycubicTFT.CommandScan();
   #endif
 }
