@@ -14925,6 +14925,10 @@ void manage_inactivity(const bool ignore_stepper_queue/*=false*/) {
     runout.run();
   #endif
 
+  #if ENABLED(ANYCUBIC_FILAMENT_RUNOUT_SENSOR)
+  AnycubicTFT.FilamentRunout();
+  #endif
+
   if (commands_in_queue < BUFSIZE) get_available_commands();
 
   const millis_t ms = millis();
