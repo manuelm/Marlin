@@ -138,7 +138,7 @@ void GcodeSuite::dwell(millis_t time) {
 
   void GcodeSuite::G29_with_retry() {
     set_bed_leveling_enabled(false);
-    for (uint8_t i = G29_MAX_RETRIES; i--;) {
+    for (uint8_t i = G29_MAX_RETRIES + 1; i--;) {
       G29();
       if (planner.leveling_active) break;
       #ifdef G29_ACTION_ON_RECOVER
