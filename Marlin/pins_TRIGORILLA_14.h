@@ -79,3 +79,53 @@
   #endif
 
 #endif // ULTRA_LCD
+
+#ifdef IS_ANYCUBIC_I3_MEGA
+  //
+  // Servos
+  //
+  #define SERVO0_PIN         11
+
+  //
+  // Z Probe (when not Z_MIN_PIN)
+  //
+  #define Z_MIN_PROBE_PIN     2
+
+  //
+  // Limit Switches
+  //
+  #define X_MIN_PIN           3
+  #define X_MAX_PIN          43 // Z2 endstop
+  #define Y_MIN_PIN          42
+  #define Y_MAX_PIN          -1
+  #define Z_MIN_PIN          18
+  #define Z_MAX_PIN          -1
+
+  //
+  // Steppers
+  //
+  #define Z2_STEP_PIN        36
+  #define Z2_DIR_PIN         34
+  #define Z2_ENABLE_PIN      30
+
+  //
+  // Temperature Sensors
+  //
+  #define TEMP_2_PIN         12
+
+  //
+  // Heaters / Fans
+  //
+  #define CONTROLLER_FAN_PIN  7
+  #define HEATER_1_PIN       45
+
+  //
+  // Misc. Functions
+  //
+  #define FIL_RUNOUT_PIN     19
+  #if defined(ANYCUBIC_TFT_MODEL)
+      #define BEEPER_PIN       31
+      #define SD_DETECT_PIN    49
+      #define KILL_PIN         41
+  #endif
+#endif
